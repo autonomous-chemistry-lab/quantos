@@ -143,19 +143,58 @@ class MettlerToledoDevice(object):
                 raise MettlerToledoError('Stopped by external action.')
         return response
 
-    def move_to(self):
+    def move_to(self,position):
         '''
-        Move Quantos sampler.
+        Move Quantos sampler, taking the position as an argument.
         '''
-        response = self._send_request_get_response('QRA 60 8 10')
+        response = self._send_request_get_response('QRA 60 8 ' + str(position))
         return response
 
+    def unlock_dosing_pin(self):
+        '''
+        Unlock dosing pin, allowing removal of dosing head.
+        '''
+        response = self._send_request_get_response('QRA 60 2 3')
+        return response
+
+    def lock_dosing_pin(self):
+        '''
+        Lock dosing pin, readying dosing head for dispensing.
+        '''
+        response = self._send_request_get_response('QRA 60 2 4')
+        return response
+
+    def set_target_value_mg(self, value):
+        '''
+        Sets the target dosing value in mg.
+        Value must be between 0.1 and 250000. Simple error handling incorporated.
+        '''
+        if int(value) < 0.10:
+            print('The dosing amount must be greater than 0.10 mg.')
+        elif int(value) > 250000:
+            print('The dosing amount must be less than 250,000 mg.')
+        else:
+            response = self._send_request_get_response('QRD 1 1 5 ' + str(value))
+            return response
+
+    def set_tolerance_value_pct(self, value):
+        '''
+        Sets the tolerance value as a percentage.
+        Value must be between 0.1 and 40. Simple error handling incorporated.
+        '''
+        if int(value) < 0.10:
+            print('The tolerance must be greater than 0.1%.')
+        elif int(value) > 40:
+            print('The tolerance must be less than 40%.')
+        else:
+            response = self._send_request_get_response('QRD 1 1 6 ' + str(value))
+            return response
 
     def quantos_test(self):
         '''
         Close the Quantos front door.
         '''
-        response = self._send_request_get_response('QRA 60 8 10')
+        response = self._send_request_get_response('QRA 60 8 ')
         #response = self._send_request_get_response('QRA 60 2 3')
         '''
         if 'I' in response[3]:
