@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<vials>
+    <vial id="1">
+        <mass>100</mass>
+    </vial>
+    <vial id="2">
+        <mass>0</mass>
+    </vial>
+</vials>

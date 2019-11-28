@@ -4,7 +4,6 @@
     <list default="true" id="77df6e7c-4dc0-4399-b663-a6c98661122a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mettler_toledo_quantos/mettler_toledo_quantos.py" beforeDir="false" afterPath="$PROJECT_DIR$/mettler_toledo_quantos/mettler_toledo_quantos.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quantos_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/quantos_test.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -107,7 +106,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
