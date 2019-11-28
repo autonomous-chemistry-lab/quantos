@@ -143,11 +143,19 @@ class MettlerToledoDevice(object):
                 raise MettlerToledoError('Stopped by external action.')
         return response
 
+    def move_to(self):
+        '''
+        Move Quantos sampler.
+        '''
+        response = self._send_request_get_response('QRA 60 8 10')
+        return response
+
+
     def quantos_test(self):
         '''
         Close the Quantos front door.
         '''
-        response = self._send_request_get_response('QRA 60 8 0')
+        response = self._send_request_get_response('QRA 60 8 10')
         #response = self._send_request_get_response('QRA 60 2 3')
         '''
         if 'I' in response[3]:
