@@ -159,7 +159,7 @@ class MettlerToledoDevice(object):
 
     def lock_dosing_pin(self):
         '''
-        Lock dosing pin, readying dosing head for dispensing.
+        Lock dosing pin, readying dosing head for dispensing. 
         '''
         response = self._send_request_get_response('QRA 60 2 4')
         return response
