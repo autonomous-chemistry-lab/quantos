@@ -5,6 +5,7 @@
 # University of Liverpool
 # Autonomous chemistry Lab
 # (C) (2019) David Marquez-Gamez <dmarquez@liverpool.ac.uk>
+# (C) (2019) Lewis Jones <lewis.jones@liverpool.ac.uk>
 
 from __future__ import print_function, division
 import serial
@@ -64,7 +65,7 @@ class MettlerToledoDevice(object):
         time.sleep(self._RESET_DELAY)
         t_end = time.time()
         self._debug_print('Initialization time =', (t_end - t_start))
-        
+
 
     def _debug_print(self, *args):
         if self.debug:
@@ -85,7 +86,7 @@ class MettlerToledoDevice(object):
         return request
 
     def _send_request_get_response(self,*args):
-    
+
         '''Sends request to device over serial port and
         returns response'''
 
@@ -170,9 +171,11 @@ class MettlerToledoDevice(object):
         Value must be between 0.1 and 250000. Simple error handling incorporated.
         '''
         if int(value) < 0.10:
-            print('The dosing amount must be greater than 0.10 mg.')
+            self._debug_print('The target value must be greater than 0.1 mg. -'
+                              'Change the value and try again.')
         elif int(value) > 250000:
-            print('The dosing amount must be less than 250,000 mg.')
+            self._debug_print('The target value must be less than 250,000 mg. -'
+                              'Change the value and try again.')
         else:
             response = self._send_request_get_response('QRD 1 1 5 ' + str(value))
             return response
@@ -183,18 +186,121 @@ class MettlerToledoDevice(object):
         Value must be between 0.1 and 40. Simple error handling incorporated.
         '''
         if int(value) < 0.10:
-            print('The tolerance must be greater than 0.1%.')
+            self._debug_print('The tolerance must be greater than 0.1% -'
+                              'Change the value and try again.')
         elif int(value) > 40:
-            print('The tolerance must be less than 40%.')
+            self._debug_print('The tolerance must be less than 40% -'
+                              'Change the value and try again.')
         else:
             response = self._send_request_get_response('QRD 1 1 6 ' + str(value))
             return response
+
+    def start_dosing(self):
+        '''
+        Starts dosing. Uses previously set parameters including:
+        target, tolerance and powder dosing algorithm
+        '''
+        response = self._send_request_get_response('QRA 61 1')
+        # Error handling
+        if 'I' in response[3]:
+            if '1' in response[4]:
+                raise MettlerToledoError('Not mounted.')
+            elif '2' in response[4]:
+                self._debug_print('Another job is running -- retrying.')
+                self.start_dosing()
+            elif '3' in response[4]:
+                raise MettlerToledoError('Timeout.')
+            elif '4' in response[4]:
+                raise MettlerToledoError('Not selected.')
+            elif '5' in response[4]:
+                raise MettlerToledoError('Not allowed at the moment.')
+            elif '6' in response[4]:
+                self._debug_print('Weight not stable - trying again in 5 seconds.')
+                time.sleep(5)
+                self.start_dosing()
+            elif '7' in response[4]:
+                raise MettlerToledoError('Powderflow error.')
+            elif '8' in response[4]:
+                raise MettlerToledoError('Stopped by external action.')
+            elif '9' in response[4]:
+                raise MettlerToledoError('Safe position error.')
+            elif '10' in response[4]:
+                raise MettlerToledoError('Head not allowed.')
+            elif '11' in response[4]:
+                raise MettlerToledoError('Head limit reached.')
+            elif '12' in response[4]:
+                raise MettlerToledoError('Head expiry date reached.')
+            elif '13' in response[4]:
+                raise MettlerToledoError('Sampler blocked.')
+        return response
+
+    def request_frontdoor_position(self):
+        '''
+        Requests the position of the front door.
+        '''
+        response = self._send_request_get_response('QRD 2 3 7')
+
+        # return position as text
+        if '2' in response[4]:
+            return self._debug_print('Door is closed.')
+        if '3' in response[4]:
+            return self._debug_print('Door is opened.')
+        if '8' in response[4]:
+            return self._debug_print('Door is not detectable.')
+        if '9' in response[4]:
+            return self._debug_print('Running.')
+        # Error handling
+        if 'I' in response[4]:
+            if '1' in response[5]:
+                raise MettlerToledoError('Not mounted.')
+            elif '2' in response[5]:
+                self._debug_print('Another job is running - waiting 5 seconds and trying again.')
+                time.sleep(5)
+                self.request_frontdoor_position()
+            elif '3' in response[5]:
+                raise MettlerToledoError('Timeout.')
+            elif '4' in response[5]:
+                raise MettlerToledoError('Not selected.')
+            elif '5' in response[5]:
+                raise MettlerToledoError('Not allowed at the moment.')
+            elif '8' in response[5]:
+                raise MettlerToledoError('Stopped by external action.')
+        return response
+
+    def request_autosampler_position(self):
+        '''
+        Requests the position of the autosampler.
+
+        !!! This is currently not working - throwing up 'Syntax error',
+        command is understood but not executable. !!!
+        '''
+        response = self._send_request_get_response('QRD 2 3 8')
+
+        # Return position as text
+        if 'I' in response[4]:
+            if '1' in response[5]:
+                raise MettlerToledoError('Not mounted.')
+            elif '2' in response[5]:
+                self._debug_print('Another job is running - waiting 5 seconds and trying again.')
+                time.sleep(5)
+                self.request_frontdoor_position()
+            elif '3' in response[5]:
+                raise MettlerToledoError('Timeout.')
+            elif '4' in response[5]:
+                raise MettlerToledoError('Not selected.')
+            elif '5' in response[5]:
+                raise MettlerToledoError('Not allowed at the moment.')
+            elif '8' in response[5]:
+                raise MettlerToledoError('Stopped by external action.')
+        else:
+            return response
+
 
     def quantos_test(self):
         '''
         Close the Quantos front door.
         '''
-        response = self._send_request_get_response('QRA 60 8 ')
+        response = self._send_request_get_response('QRD 2 3 8')
         #response = self._send_request_get_response('QRA 60 2 3')
         '''
         if 'I' in response[3]:
