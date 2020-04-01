@@ -8,49 +8,107 @@
 from mettler_toledo_quantos import MettlerToledoDevice
 from tkinter import *
 
+master = Tk()
 
-# Here, we are creating our class, Window, and inheriting from the Frame class
-class Window(Frame):
+# Changing title of master widget
+master.title('Quantos GUI')
 
-    # Define settings upon initialisation. From here we can specify
-    def __init__(self, master=None):
+# creation of function to exit window
+def client_exit():
+    exit()
 
-        # parameters to be sent to the frame class
-        Frame.__init__(self, master)
+# Creating a button instance
+quitButton = Button(master, text='Quit', command=client_exit)
 
-        # reference to the master widget, which is the tk window
-        self.master = master
+# Placing button on window
+quitButton.grid(row=22)
 
-        # then run init_window, which is written below
-        self.init_window()
+# Creating vial labels
+Label(master, text='Vial Number').grid(row=0)
+Label(master, text='Mass (mg)').grid(row=0,column=1)
 
-    # creation of init_window
-    def init_window(self):
+for i in range(20):
+    Label(master, text=str(i+1)).grid(row=i+2)
 
-        # Changing title of master widget
-        self.master.title('Quantos GUI')
+# Creating entries attached to variables, to use get() function on
+e1 = Entry(master)
+e2 = Entry(master)
+e3 = Entry(master)
+e4 = Entry(master)
+e5 = Entry(master)
+e6 = Entry(master)
+e7 = Entry(master)
+e8 = Entry(master)
+e9 = Entry(master)
+e10 = Entry(master)
+e11 = Entry(master)
+e12 = Entry(master)
+e13 = Entry(master)
+e14 = Entry(master)
+e15 = Entry(master)
+e16 = Entry(master)
+e17 = Entry(master)
+e18 = Entry(master)
+e19 = Entry(master)
+e20 = Entry(master)
 
-        # Allowing widget to take full space of the root window
-        self.pack(fill=BOTH, expand=1)
+e1.grid(row=2, column=1)
+e2.grid(row=3, column=1)
+e3.grid(row=4, column=1)
+e4.grid(row=5, column=1)
+e5.grid(row=6, column=1)
+e6.grid(row=7, column=1)
+e7.grid(row=8, column=1)
+e8.grid(row=9, column=1)
+e9.grid(row=10, column=1)
+e10.grid(row=11, column=1)
+e11.grid(row=12, column=1)
+e12.grid(row=13, column=1)
+e13.grid(row=14, column=1)
+e14.grid(row=15, column=1)
+e15.grid(row=16, column=1)
+e16.grid(row=17, column=1)
+e17.grid(row=18, column=1)
+e18.grid(row=19, column=1)
+e19.grid(row=20, column=1)
+e20.grid(row=21, column=1)
 
-        # Creating a button instance
-        quitButton = Button(self, text='Quit', command=self.client_exit)
+def show_amounts():
+    # Create empty list for values from GUI
+    vals_list = []
 
-        # Placing button on window
-        quitButton.place(x=0,y=0)
+    # lists of vials for creating dictionary
+    vials = range(1,21)
 
-    # creation of function to exit window
-    def client_exit(self):
-        exit()
+    # list of entries from GUI to extract digits from
+    e_list = [e1,e2,e3,e4,e5,e6,e7,e8,e9,e10,e11,e12,e13,e14,e15,e16,e17,e18,e19,e20]
 
-# root window created
-root = Tk()
+    # loop through each entry and append values as integers to values_list, adding 0 if empty
+    for e in e_list:
+        if e.get() == '':
+            vals_list.append(0)
+        else:
+            vals_list.append(int(e.get()))
 
-# Size of the window
-root.geometry('400x300')
+    # Create dictionary
+    vals_dict = dict(zip(vials, vals_list))
 
-# creation of an instance
-app = Window(root)
+    '''
+    text1 = 'Vial 1 = {}\nVial 2 = {}\nVial 3 = {}\nVial 4 = {}\nVial 5 = {}\nVial 6 = {}\nVial 7 = {}' \
+            '\nVial 8 = {}\nVial 9 = {}\nVial 10 = {}\nVial 11 = {}\nVial 12 = {}\nVial 13 = {}' \
+            '\nVial 14 = {}\nVial 15 = {}\nVial 16 = {}\nVial 17 = {}\nVial 18 = {}\nVial 19 = {}\nVial 20 = {}'
+            
+    print(text1.format(e1.get(), e2.get(), e3.get(), e4.get(), e5.get(),
+                       e6.get(), e7.get(), e8.get(), e9.get(), e10.get(),
+                       e11.get(), e12.get(), e13.get(), e14.get(), e15.get(),
+                       e16.get(), e17.get(), e18.get(), e19.get(), e20.get()))
+    '''
 
-#mainloop
-root.mainloop()
+    print(vals_dict)
+    print(vals_dict[5])
+
+Button(master,
+       text='Send',
+       command=show_amounts).grid(row=22, column=1)
+
+master.mainloop()

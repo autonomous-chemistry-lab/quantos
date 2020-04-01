@@ -300,7 +300,7 @@ class MettlerToledoDevice(object):
         '''
         Close the Quantos front door.
         '''
-        response = self._send_request_get_response('QRD 2 3 8')
+        response = self._send_request_get_response('QRD 1 1 2 1')
         #response = self._send_request_get_response('QRA 60 2 3')
         '''
         if 'I' in response[3]:
