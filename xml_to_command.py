@@ -1,10 +1,7 @@
 #!/usr/bin/env python
 #
-# This is a module for mettler toledo quantos
-#
 # University of Liverpool
 # Autonomous chemistry Lab
-# (C) (2019) David Marquez-Gamez <dmarquez@liverpool.ac.uk>
 # (C) (2019) Lewis Jones <lewis.jones@liverpool.ac.uk>
 
 from mettler_toledo_quantos import MettlerToledoDevice
@@ -39,20 +36,43 @@ def initialise_quantos(tolerance=5):
 
     # set tolerance
     MettlerToledoDevice.set_tolerance_value_pct(tolerance)
-
+    time.sleep(2)
 
 
 def dosing():
     for i in vials:
-        # print('{}'.format(i), value_list[i])
+        '''
+        Rather than using wait times, would be more elegant to rely on the Quantos response to pass to next step...
+        Something along the lines of:
+        
+        try MettlerToledoDevice.move_to(i):
+            if response[x] == 'value':
+                pass
+            elif response[x] == 'error':
+                print('There has been an error')
+                break
+    '''
 
-        #MettlerToledoDevice.move_to(i)
-        #time.sleep(10)
+        # Move to location
+        MettlerToledoDevice.move_to(i)
+        #print(response)
+        time.sleep(10)
 
+        # Set mass to be dispensed
+        MettlerToledoDevice.set_target_value_mg(int(value_list[i]))
+        #print(response)
+        time.sleep(2)
+
+        # start dispensing
+        MettlerToledoDevice.start_dosing()
+        #print(response)
+
+        # print to terminal that dosing is complete
+        print('Dosing number {} is complete.'.format(i))
 
 
 # testing functions
-#initialise_quantos()
+initialise_quantos()
 find_values()
 dosing()
 
