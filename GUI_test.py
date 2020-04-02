@@ -7,6 +7,9 @@
 
 from mettler_toledo_quantos import MettlerToledoDevice
 from tkinter import *
+from dicttoxml import dicttoxml
+from xml.dom.minidom import parseString
+import xml.etree.ElementTree as ET
 
 master = Tk()
 
@@ -78,7 +81,8 @@ def show_amounts():
     vals_list = []
 
     # lists of vials for creating dictionary
-    vials = range(1,21)
+    vials = ['Vial 1','Vial 2','Vial 3','Vial 4','Vial 5','Vial 6','Vial 7','Vial 8','Vial 9','Vial 10',
+             'Vial 11','Vial 12','Vial 13','Vial 14','Vial 15','Vial 16','Vial 17','Vial 18','Vial 19','Vial 20']
 
     # list of entries from GUI to extract digits from
     e_list = [e1,e2,e3,e4,e5,e6,e7,e8,e9,e10,e11,e12,e13,e14,e15,e16,e17,e18,e19,e20]
@@ -88,7 +92,7 @@ def show_amounts():
         if e.get() == '':
             vals_list.append(0)
         else:
-            vals_list.append(int(e.get()))
+            vals_list.append((e.get()))
 
     # Create dictionary
     vals_dict = dict(zip(vials, vals_list))
@@ -103,9 +107,20 @@ def show_amounts():
                        e11.get(), e12.get(), e13.get(), e14.get(), e15.get(),
                        e16.get(), e17.get(), e18.get(), e19.get(), e20.get()))
     '''
+    # debug creation of dictionary
+    #print(vals_dict)
 
-    print(vals_dict)
-    print(vals_dict[5])
+    # Turn dictionary into an xml file
+    xml = dicttoxml(vals_dict, custom_root='quantos', attr_type=False).decode('utf-8')          # attr_type is to remove 'type' from xml
+
+    # to create prettified xml
+    dom = parseString(xml)
+    pretty_xml = dom.toprettyxml()
+
+    # write entries from GUI into xml file
+    with open('Values.xml', 'w') as f:
+        f.write(pretty_xml)
+
 
 Button(master,
        text='Send',
