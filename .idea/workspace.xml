@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="77df6e7c-4dc0-4399-b663-a6c98661122a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/xml_to_command.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_test.py" afterDir="false" />
     </list>
@@ -39,7 +39,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.xml_to_command">
+  <component name="RunManager" selected="Python.GUI_test">
     <configuration name="GUI_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="quantos" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -147,8 +147,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.xml_to_command" />
         <item itemvalue="Python.GUI_test" />
+        <item itemvalue="Python.xml_to_command" />
         <item itemvalue="Python.quantos_test" />
         <item itemvalue="Python.XML_Parcer" />
         <item itemvalue="Python.find_serial" />
@@ -194,7 +194,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585840621723</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="added shebang">
+      <created>1585842726322</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1585842726322</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -214,6 +221,7 @@
     <MESSAGE value="Started GUI" />
     <MESSAGE value="GUI for starting to make XML files for Quantos" />
     <MESSAGE value="Creates an XML file from values entered into GUI" />
-    <option name="LAST_COMMIT_MESSAGE" value="Creates an XML file from values entered into GUI" />
+    <MESSAGE value="added shebang" />
+    <option name="LAST_COMMIT_MESSAGE" value="added shebang" />
   </component>
 </project>

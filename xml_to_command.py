@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+#
+# This is a module for mettler toledo quantos
+#
+# University of Liverpool
+# Autonomous chemistry Lab
+# (C) (2019) David Marquez-Gamez <dmarquez@liverpool.ac.uk>
+# (C) (2019) Lewis Jones <lewis.jones@liverpool.ac.uk>
+
 from mettler_toledo_quantos import MettlerToledoDevice
 import xml.etree.ElementTree as ET
 import time
