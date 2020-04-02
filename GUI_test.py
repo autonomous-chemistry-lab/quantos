@@ -5,7 +5,6 @@
 #
 # (C) 2020 Lewis Jones <Lewis.Jones@liverpool.ac.uk>
 
-from mettler_toledo_quantos import MettlerToledoDevice
 from tkinter import *
 from dicttoxml import dicttoxml
 from xml.dom.minidom import parseString
