@@ -11,7 +11,6 @@ import tkinter.ttk as ttk
 from ttkthemes import ThemedStyle
 from dicttoxml import dicttoxml
 from xml.dom.minidom import parseString
-import xml.etree.ElementTree as ET
 
 master = Tk()
 
@@ -31,6 +30,46 @@ style.set_theme('scidgrey')                     # use ttk.Button etc to access t
 # creation of function to exit window
 def client_exit():
     exit()
+
+'''Creation of menu bar'''
+# function that does nothing
+def do_nothing():
+    x = 0
+
+# create function that clears entries
+def clear_entry():
+    for e in e_list:
+        e.delete(0,5)
+
+# Popup message with information
+def popupmsg():
+    popup = Tk()
+    popup.wm_title("About")
+    msg = 'A program to create xml files for sending to a Mettler-Toledo Quantos Automatic Solid Dispenser\n' \
+          'for remote dispensing\n\n' \
+          'Lewis Jones\n Lewis.Jones@liverpool.ac.uk\n' \
+          'Autonomous Chemistry Laboratory\n' \
+          'Universtity of Liverpool\n 2020'
+    label = Label(popup, text=msg)
+    label.pack(side="top", fill="x", pady=10)
+    B1 = Button(popup, text="OK", command = popup.destroy)
+    B1.pack()
+    popup.mainloop()
+
+# initialise menu
+menubar = Menu(master)
+
+# file menu
+filemenu = Menu(menubar, tearoff=0)
+filemenu.add_command(label='Clear Values', command=clear_entry)
+filemenu.add_separator()
+filemenu.add_command(label='Quit', command=client_exit)
+menubar.add_cascade(label='File', menu=filemenu)
+
+# help menu
+helpmenu = Menu(menubar, tearoff=0)
+helpmenu.add_command(label='About', command=popupmsg)
+menubar.add_cascade(label='Help', menu=helpmenu)
 
 # Creating a quit button instance
 quitButton = ttk.Button(master, text='Quit', command=client_exit)
@@ -71,6 +110,8 @@ e17 = Entry(master)
 e18 = Entry(master)
 e19 = Entry(master)
 e20 = Entry(master)
+
+e_list = [e1,e2,e3,e4,e5,e6,e7,e8,e9,e10,e11,e12,e13,e14,e15,e16,e17,e18,e19,e20]
 
 e1.grid(row=2, column=2)
 e2.grid(row=3, column=2)
@@ -138,8 +179,10 @@ def show_amounts():
     with open('Values.xml', 'w') as f:
         f.write(pretty_xml)
 
+# create 'Send' button
 ttk.Button(master,
        text='Send',
        command=show_amounts).grid(row=22, column=2)
 
+master.config(menu=menubar)
 master.mainloop()

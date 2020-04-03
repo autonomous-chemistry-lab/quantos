@@ -4,7 +4,6 @@
     <list default="true" id="77df6e7c-4dc0-4399-b663-a6c98661122a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Values.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Values.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -215,7 +214,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585844331695</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Fixed some formatting in GUI and introduced a title.">
+      <created>1585928982643</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1585928982643</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -237,6 +243,7 @@
     <MESSAGE value="Creates an XML file from values entered into GUI" />
     <MESSAGE value="added shebang" />
     <MESSAGE value="Started writing program to send values from xml file created using GUI to Quantos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Started writing program to send values from xml file created using GUI to Quantos" />
+    <MESSAGE value="Fixed some formatting in GUI and introduced a title." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed some formatting in GUI and introduced a title." />
   </component>
 </project>
