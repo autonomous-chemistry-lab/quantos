@@ -7,6 +7,8 @@
 # (C) 2020 Lewis Jones <Lewis.Jones@liverpool.ac.uk>
 
 from tkinter import *
+import tkinter.ttk as ttk
+from ttkthemes import ThemedStyle
 from dicttoxml import dicttoxml
 from xml.dom.minidom import parseString
 import xml.etree.ElementTree as ET
@@ -14,24 +16,39 @@ import xml.etree.ElementTree as ET
 master = Tk()
 
 # Changing title of master widget
-master.title('Quantos GUI')
+master.title('Quantos Dispensing')
+
+# hex colour
+hex = '#676a6e'
+
+# change background colour
+#master.configure(bg=hex)
+
+# changing theme of GUI
+style = ThemedStyle(master)
+style.set_theme('scidgrey')                     # use ttk.Button etc to access the themes
 
 # creation of function to exit window
 def client_exit():
     exit()
 
-# Creating a button instance
-quitButton = Button(master, text='Quit', command=client_exit)
+# Creating a quit button instance
+quitButton = ttk.Button(master, text='Quit', command=client_exit)
 
-# Placing button on window
-quitButton.grid(row=22)
+# Placing quit button on window
+quitButton.grid(row=22,column=1)
 
-# Creating vial labels
-Label(master, text='Vial Number').grid(row=0)
-Label(master, text='Mass (mg)').grid(row=0,column=1)
+# intro message
+intro_message = 'Please enter the mass (in mg) to be dispensed below.'
+Label(master, text=intro_message, font='helvetica 16 bold', pady=5).grid(row=0, column=0, columnspan=4)
 
+# Creating vial labels and placing them in grid
+Label(master, text='Vial', font='helvetica 14 bold').grid(row=1, column=1)
+Label(master, text='Mass', font='helvetica 14 bold').grid(row=1,column=2)
+
+# creating labels for the different vials
 for i in range(20):
-    Label(master, text=str(i+1)).grid(row=i+2)
+    Label(master, text=str(i+1), font='helvetica 14').grid(row=i+2, column=1)
 
 # Creating entries attached to variables, to use get() function on
 e1 = Entry(master)
@@ -55,26 +72,26 @@ e18 = Entry(master)
 e19 = Entry(master)
 e20 = Entry(master)
 
-e1.grid(row=2, column=1)
-e2.grid(row=3, column=1)
-e3.grid(row=4, column=1)
-e4.grid(row=5, column=1)
-e5.grid(row=6, column=1)
-e6.grid(row=7, column=1)
-e7.grid(row=8, column=1)
-e8.grid(row=9, column=1)
-e9.grid(row=10, column=1)
-e10.grid(row=11, column=1)
-e11.grid(row=12, column=1)
-e12.grid(row=13, column=1)
-e13.grid(row=14, column=1)
-e14.grid(row=15, column=1)
-e15.grid(row=16, column=1)
-e16.grid(row=17, column=1)
-e17.grid(row=18, column=1)
-e18.grid(row=19, column=1)
-e19.grid(row=20, column=1)
-e20.grid(row=21, column=1)
+e1.grid(row=2, column=2)
+e2.grid(row=3, column=2)
+e3.grid(row=4, column=2)
+e4.grid(row=5, column=2)
+e5.grid(row=6, column=2)
+e6.grid(row=7, column=2)
+e7.grid(row=8, column=2)
+e8.grid(row=9, column=2)
+e9.grid(row=10, column=2)
+e10.grid(row=11, column=2)
+e11.grid(row=12, column=2)
+e12.grid(row=13, column=2)
+e13.grid(row=14, column=2)
+e14.grid(row=15, column=2)
+e15.grid(row=16, column=2)
+e16.grid(row=17, column=2)
+e17.grid(row=18, column=2)
+e18.grid(row=19, column=2)
+e19.grid(row=20, column=2)
+e20.grid(row=21, column=2)
 
 def show_amounts():
     # Create empty list for values from GUI
@@ -121,9 +138,8 @@ def show_amounts():
     with open('Values.xml', 'w') as f:
         f.write(pretty_xml)
 
-
-Button(master,
+ttk.Button(master,
        text='Send',
-       command=show_amounts).grid(row=22, column=1)
+       command=show_amounts).grid(row=22, column=2)
 
 master.mainloop()
