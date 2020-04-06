@@ -11,6 +11,7 @@ import tkinter.ttk as ttk
 from ttkthemes import ThemedStyle
 from dicttoxml import dicttoxml
 from xml.dom.minidom import parseString
+import time
 
 master = Tk()
 
@@ -42,7 +43,7 @@ def clear_entry():
         e.delete(0,5)
 
 # Popup message with information
-def popupmsg():
+def about_msg():
     popup = Tk()
     popup.wm_title("About")
     msg = 'A program to create xml files for sending to a Mettler-Toledo Quantos Automatic Solid Dispenser\n' \
@@ -68,7 +69,7 @@ menubar.add_cascade(label='File', menu=filemenu)
 
 # help menu
 helpmenu = Menu(menubar, tearoff=0)
-helpmenu.add_command(label='About', command=popupmsg)
+helpmenu.add_command(label='About', command=about_msg)
 menubar.add_cascade(label='Help', menu=helpmenu)
 
 # Creating a quit button instance
@@ -179,10 +180,30 @@ def show_amounts():
     with open('Values.xml', 'w') as f:
         f.write(pretty_xml)
 
+# Enhancing send button to also clear values and show popup
+# Creating popup window
+def sent_msg():
+    popup = Tk()
+    popup.wm_title("!")
+    msg_1 = 'Values sent'
+    label = Label(popup, text=msg_1)
+    label.pack(side="top", fill="x", pady=10)
+    B1 = Button(popup, text="OK", command = popup.destroy)
+    B1.pack()
+    popup.mainloop()
+
+# Creating command
+def send_clear_popup():
+    show_amounts()
+    time.sleep(0.5)
+    clear_entry()
+    time.sleep(0.5)
+    sent_msg()
+
 # create 'Send' button
 ttk.Button(master,
        text='Send',
-       command=show_amounts).grid(row=22, column=2)
+       command=send_clear_popup).grid(row=22, column=2)
 
 master.config(menu=menubar)
 master.mainloop()
