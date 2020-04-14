@@ -229,7 +229,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585930847288</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="enhanced send button to clear values and show popup showing completion">
+      <created>1586161049182</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1586161049182</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -253,6 +260,7 @@
     <MESSAGE value="Started writing program to send values from xml file created using GUI to Quantos" />
     <MESSAGE value="Fixed some formatting in GUI and introduced a title." />
     <MESSAGE value="Introduced menu bar, including a pop up window containing information about the program." />
-    <option name="LAST_COMMIT_MESSAGE" value="Introduced menu bar, including a pop up window containing information about the program." />
+    <MESSAGE value="enhanced send button to clear values and show popup showing completion" />
+    <option name="LAST_COMMIT_MESSAGE" value="enhanced send button to clear values and show popup showing completion" />
   </component>
 </project>

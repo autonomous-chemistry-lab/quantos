@@ -1,10 +1,13 @@
 #! /Users/lewisjones/PycharmProjects/Quantos_devel/venv/bin/python
-# This is a GUI to control the Quantos
+# A GUI used to create an xml file of vials and masses, readable by a secondary script to send commands to a
+# Mettler-Toledo Quantos to enable dispensing.
 #
 # University of Liverpool
+# Materials Innovation Factory
 # Autonomous Chemistry Laboratory
 #
 # (C) 2020 Lewis Jones <Lewis.Jones@liverpool.ac.uk>
+
 
 from tkinter import *
 import tkinter.ttk as ttk
@@ -13,36 +16,74 @@ from dicttoxml import dicttoxml
 from xml.dom.minidom import parseString
 import time
 
-master = Tk()
 
-# Changing title of master widget
-master.title('Quantos Dispensing')
-
-# hex colour
-hex = '#676a6e'
-
-# change background colour
-#master.configure(bg=hex)
-
-# changing theme of GUI
-style = ThemedStyle(master)
-style.set_theme('scidgrey')                     # use ttk.Button etc to access the themes
-
+'''Creation of Main Widget functions'''
 # creation of function to exit window
 def client_exit():
     exit()
 
-'''Creation of menu bar'''
-# function that does nothing
-def do_nothing():
-    x = 0
+def show_amounts():
+    # Create empty list for inputted mass values from GUI
+    vals_list = []
 
+    # A list containing each vial name, used in creating the dictionary
+    vials = ['Vial 1', 'Vial 2', 'Vial 3', 'Vial 4', 'Vial 5', 'Vial 6', 'Vial 7', 'Vial 8', 'Vial 9', 'Vial 10',
+             'Vial 11', 'Vial 12', 'Vial 13', 'Vial 14', 'Vial 15', 'Vial 16', 'Vial 17', 'Vial 18', 'Vial 19',
+             'Vial 20']
+
+    # List of entry boxes from GUI to extract the inputted values from
+    e_list = [e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16, e17, e18, e19, e20]
+
+    # Loop through each entry in e_list and append values to vals_list, adding '0' if empty
+    for e in e_list:
+        if e.get() == '':
+            vals_list.append(0)
+        else:
+            vals_list.append((e.get()))
+
+    # Create dictionary
+    vals_dict = dict(zip(vials, vals_list))
+
+    # Turn dictionary into an xml file
+    xml = dicttoxml(vals_dict, custom_root='quantos', attr_type=False).decode('utf-8')  # attr_type used to remove 'type' from xml
+
+    # To create a 'prettified' xml
+    dom = parseString(xml)
+    pretty_xml = dom.toprettyxml()
+
+    # write entries from GUI into xml file called 'Values.xml'
+    with open('Values.xml', 'w') as f:
+        f.write(pretty_xml)
+
+
+'''Enhancing 'Send' button to include a popup message acknowledging completion and clearing values'''
+# Creating popup window
+def sent_msg():
+    popup = Tk()
+    popup.wm_title("!")
+    msg_1 = 'Values sent'
+    label = Label(popup, text=msg_1)
+    label.pack(side="top", fill="x", pady=10)
+    B1 = Button(popup, text="OK", command = popup.destroy)
+    B1.pack()
+    popup.mainloop()
+
+# Combining previous 'Send' command with clearing the entries and showing popup
+def send_clear_popup():
+    show_amounts()
+    time.sleep(0.5)
+    clear_entry()
+    time.sleep(0.5)
+    sent_msg()
+
+
+'''Creation of menu bar'''
 # create function that clears entries
 def clear_entry():
     for e in e_list:
         e.delete(0,5)
 
-# Popup message with information
+# Creation of a popup message in 'About' menu bar with information about what the GUI does and the developer
 def about_msg():
     popup = Tk()
     popup.wm_title("About")
@@ -57,30 +98,32 @@ def about_msg():
     B1.pack()
     popup.mainloop()
 
-# initialise menu
-menubar = Menu(master)
 
-# file menu
-filemenu = Menu(menubar, tearoff=0)
-filemenu.add_command(label='Clear Values', command=clear_entry)
-filemenu.add_separator()
-filemenu.add_command(label='Quit', command=client_exit)
-menubar.add_cascade(label='File', menu=filemenu)
+'''Initialising main tkinter window'''
+# set 'master' as a tkinter instance
+master = Tk()
 
-# help menu
-helpmenu = Menu(menubar, tearoff=0)
-helpmenu.add_command(label='About', command=about_msg)
-menubar.add_cascade(label='Help', menu=helpmenu)
+# Setting the title of master widget
+master.title('Quantos Dispensing')
+
+# changing theme of GUI
+style = ThemedStyle(master)
+style.set_theme('scidgrey')                     # use ttk.Button etc to access the themes
+
+# intro message
+intro_message = 'Please enter the mass (in mg) to be dispensed below.'
+Label(master, text=intro_message, font='helvetica 16 bold', pady=5).grid(row=0, column=0, columnspan=4)
+
+# create 'Send' button
+ttk.Button(master,
+       text='Send',
+       command=send_clear_popup).grid(row=22, column=2)
 
 # Creating a quit button instance
 quitButton = ttk.Button(master, text='Quit', command=client_exit)
 
 # Placing quit button on window
 quitButton.grid(row=22,column=1)
-
-# intro message
-intro_message = 'Please enter the mass (in mg) to be dispensed below.'
-Label(master, text=intro_message, font='helvetica 16 bold', pady=5).grid(row=0, column=0, columnspan=4)
 
 # Creating vial labels and placing them in grid
 Label(master, text='Vial', font='helvetica 14 bold').grid(row=1, column=1)
@@ -112,8 +155,10 @@ e18 = Entry(master)
 e19 = Entry(master)
 e20 = Entry(master)
 
+# Generate list of entry values for easy access
 e_list = [e1,e2,e3,e4,e5,e6,e7,e8,e9,e10,e11,e12,e13,e14,e15,e16,e17,e18,e19,e20]
 
+# Place each entry on the GUI
 e1.grid(row=2, column=2)
 e2.grid(row=3, column=2)
 e3.grid(row=4, column=2)
@@ -135,75 +180,27 @@ e18.grid(row=19, column=2)
 e19.grid(row=20, column=2)
 e20.grid(row=21, column=2)
 
-def show_amounts():
-    # Create empty list for values from GUI
-    vals_list = []
 
-    # lists of vials for creating dictionary
-    vials = ['Vial 1','Vial 2','Vial 3','Vial 4','Vial 5','Vial 6','Vial 7','Vial 8','Vial 9','Vial 10',
-             'Vial 11','Vial 12','Vial 13','Vial 14','Vial 15','Vial 16','Vial 17','Vial 18','Vial 19','Vial 20']
+'''Initialising menu bar'''
+# initialise menu
+menubar = Menu(master)
 
-    # list of entries from GUI to extract digits from
-    e_list = [e1,e2,e3,e4,e5,e6,e7,e8,e9,e10,e11,e12,e13,e14,e15,e16,e17,e18,e19,e20]
+# file menu
+filemenu = Menu(menubar, tearoff=0)
+filemenu.add_command(label='Clear Values', command=clear_entry)
+filemenu.add_separator()
+filemenu.add_command(label='Quit', command=client_exit)
+menubar.add_cascade(label='File', menu=filemenu)
 
-    # loop through each entry and append values as integers to values_list, adding 0 if empty
-    for e in e_list:
-        if e.get() == '':
-            vals_list.append(0)
-        else:
-            vals_list.append((e.get()))
+# help menu
+helpmenu = Menu(menubar, tearoff=0)
+helpmenu.add_command(label='About', command=about_msg)
+menubar.add_cascade(label='Help', menu=helpmenu)
 
-    # Create dictionary
-    vals_dict = dict(zip(vials, vals_list))
 
-    '''
-    text1 = 'Vial 1 = {}\nVial 2 = {}\nVial 3 = {}\nVial 4 = {}\nVial 5 = {}\nVial 6 = {}\nVial 7 = {}' \
-            '\nVial 8 = {}\nVial 9 = {}\nVial 10 = {}\nVial 11 = {}\nVial 12 = {}\nVial 13 = {}' \
-            '\nVial 14 = {}\nVial 15 = {}\nVial 16 = {}\nVial 17 = {}\nVial 18 = {}\nVial 19 = {}\nVial 20 = {}'
-            
-    print(text1.format(e1.get(), e2.get(), e3.get(), e4.get(), e5.get(),
-                       e6.get(), e7.get(), e8.get(), e9.get(), e10.get(),
-                       e11.get(), e12.get(), e13.get(), e14.get(), e15.get(),
-                       e16.get(), e17.get(), e18.get(), e19.get(), e20.get()))
-    '''
-    # debug creation of dictionary
-    #print(vals_dict)
-
-    # Turn dictionary into an xml file
-    xml = dicttoxml(vals_dict, custom_root='quantos', attr_type=False).decode('utf-8')          # attr_type is to remove 'type' from xml
-
-    # to create prettified xml
-    dom = parseString(xml)
-    pretty_xml = dom.toprettyxml()
-
-    # write entries from GUI into xml file
-    with open('Values.xml', 'w') as f:
-        f.write(pretty_xml)
-
-# Enhancing send button to also clear values and show popup
-# Creating popup window
-def sent_msg():
-    popup = Tk()
-    popup.wm_title("!")
-    msg_1 = 'Values sent'
-    label = Label(popup, text=msg_1)
-    label.pack(side="top", fill="x", pady=10)
-    B1 = Button(popup, text="OK", command = popup.destroy)
-    B1.pack()
-    popup.mainloop()
-
-# Creating command
-def send_clear_popup():
-    show_amounts()
-    time.sleep(0.5)
-    clear_entry()
-    time.sleep(0.5)
-    sent_msg()
-
-# create 'Send' button
-ttk.Button(master,
-       text='Send',
-       command=send_clear_popup).grid(row=22, column=2)
-
+'''Finalise window'''
 master.config(menu=menubar)
 master.mainloop()
+
+
+'''Next step is to create a __main__ and wrap the above into a main() function'''
