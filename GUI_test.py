@@ -23,7 +23,7 @@ def client_exit():
     exit()
 
 
-def show_amounts(alist):
+def show_amounts():
     # Create empty list for inputted mass values from GUI
     vals_list = []
 

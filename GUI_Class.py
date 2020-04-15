@@ -10,8 +10,6 @@
 
 
 from tkinter import *
-import tkinter.ttk as ttk
-from ttkthemes import ThemedStyle
 from dicttoxml import dicttoxml
 from xml.dom.minidom import parseString
 import time
@@ -41,11 +39,11 @@ class QuantosGUI:
             Label(master, text=str(i + 1), font='helvetica 14').grid(row=i + 2, column=1)
 
         # Create quit button
-        self.quit_button = Button(master, text='Quit', command=self.print_hello)
+        self.quit_button = Button(master, text='Quit', command=self.client_exit)
         self.quit_button.grid(row=22,column=1)
 
         # Create send button
-        self.send_button = Button(master, text='Send', command=self.print_hello)
+        self.send_button = Button(master, text='Send', command=self.get_values)
         self.send_button.grid(row=22, column=2)
 
         # Creating entries for each vial
@@ -103,7 +101,7 @@ class QuantosGUI:
         self.filemenu = Menu(self.menubar, tearoff=0)
         self.filemenu.add_command(label='Clear Values', command=self.clear_values)
         self.filemenu.add_separator()
-        self.filemenu.add_command(label='Quit', command=self.print_hello)
+        self.filemenu.add_command(label='Quit', command=self.client_exit)
         self.menubar.add_cascade(label='File', menu=self.filemenu)
 
         # Create help menu
@@ -121,14 +119,12 @@ class QuantosGUI:
         '''
         print('Hello World!')
 
-
     def clear_values(self):
         '''
         Function to clear all entries
         '''
         for e in self.e_list:
             e.delete(0, 5)
-
 
     def about_msg(self):
         '''
@@ -147,6 +143,32 @@ class QuantosGUI:
         self.B1.pack()
         self.popup.mainloop()
 
+    def client_exit(self):
+        '''
+        Exits the program
+        '''
+        exit()
+
+    def get_values(self):
+        '''
+        Gets values from GUI and saves them into a dictionary
+        '''
+        # Create empty list for inputted mass values from GUI
+        self.vals_list = []
+        # A list containing each vial name
+        self.vials = ['Vial 1', 'Vial 2', 'Vial 3', 'Vial 4', 'Vial 5', 'Vial 6', 'Vial 7', 'Vial 8', 'Vial 9',
+                      'Vial 10', 'Vial 11', 'Vial 12', 'Vial 13', 'Vial 14', 'Vial 15', 'Vial 16', 'Vial 17',
+                      'Vial 18', 'Vial 19', 'Vial 20']
+
+        # Loop through each entry in e_list and append values to vals_list, adding '0' if empty
+        for e in self.e_list:
+            if e.get() == '':
+                self.vals_list.append(0)
+            else:
+                self.vals_list.append((e.get()))
+
+        # Create dictionary
+        self.vals_dict = dict(zip(self.vials, self.vals_list))
 
 
 
