@@ -1,4 +1,4 @@
-#! /Users/lewisjones/PycharmProjects/Quantos_devel/venv/bin/python
+#! /usr/bin/python3
 # A GUI used to create an xml file of vials and masses, readable by a secondary script to send commands to a
 # Mettler-Toledo Quantos to enable dispensing.
 #
@@ -213,7 +213,10 @@ class QuantosGUI:
         time.sleep(0.5)
         self.sent_popup()
 
+
 if __name__ == '__main__':
     root = Tk()
     my_gui = QuantosGUI(root)
     root.mainloop()
+
+

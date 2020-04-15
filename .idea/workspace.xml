@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="77df6e7c-4dc0-4399-b663-a6c98661122a" name="Default Changelist" comment="">
+    <list default="true" id="77df6e7c-4dc0-4399-b663-a6c98661122a" name="Default Changelist" comment="Class is working">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI_Class.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Class.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
