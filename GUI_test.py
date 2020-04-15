@@ -216,7 +216,7 @@ def main():
     master = init_window()
     menubar = create_menu(master)
     e_list = create_elist(master)
-    print(e_list)
+    #print(e_list)
     show_window(master, menubar)
 
 if __name__ == '__main__':
