@@ -43,7 +43,7 @@ class QuantosGUI:
         self.quit_button.grid(row=22,column=1)
 
         # Create send button
-        self.send_button = Button(master, text='Send', command=self.get_values)
+        self.send_button = Button(master, text='Send', command=self.send_button_command)
         self.send_button.grid(row=22, column=2)
 
         # Creating entries for each vial
@@ -170,7 +170,48 @@ class QuantosGUI:
         # Create dictionary
         self.vals_dict = dict(zip(self.vials, self.vals_list))
 
+    def create_xml(self):
+        '''
+        Creates xml file from the values dictionary
+        '''
+        # Turn dictionary into an xml file
+        self.xml = dicttoxml(self.vals_dict, custom_root='quantos', attr_type=False).decode('utf-8')
 
+        # To create a 'prettified' xml
+        self.dom = parseString(self.xml)
+        self.pretty_xml = self.dom.toprettyxml()
+
+        # write entries from GUI into xml file called 'Values.xml'
+        with open('new_values.xml', 'w') as f:
+            f.write(self.pretty_xml)
+
+    def sent_popup(self):
+        '''
+        Creates a popup showing values have been sent
+        '''
+        # Initialise popup
+        self.popup = Tk()
+        self.popup.wm_title("!")
+
+        # Set message
+        self.msg_1 = 'Values sent'
+        self.sent_label = Label(self.popup, text=self.msg_1)
+        self.sent_label.pack(side="top", fill="x", pady=10)
+
+        # Close button
+        self.B1 = Button(self.popup, text="OK", command=self.popup.destroy)
+        self.B1.pack()
+
+        # Initialise
+        self.popup.mainloop()
+
+    def send_button_command(self):
+        self.get_values()
+        time.sleep(0.5)
+        self.create_xml()
+        self.clear_values()
+        time.sleep(0.5)
+        self.sent_popup()
 
 if __name__ == '__main__':
     root = Tk()
