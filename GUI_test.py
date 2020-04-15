@@ -22,7 +22,8 @@ import time
 def client_exit():
     exit()
 
-def show_amounts():
+
+def show_amounts(alist):
     # Create empty list for inputted mass values from GUI
     vals_list = []
 
@@ -70,7 +71,7 @@ def sent_msg():
 
 # Combining previous 'Send' command with clearing the entries and showing popup
 def send_clear_popup():
-    show_amounts()
+    show_amounts(e_list)
     time.sleep(0.5)
     clear_entry()
     time.sleep(0.5)
@@ -99,108 +100,124 @@ def about_msg():
     popup.mainloop()
 
 
-'''Initialising main tkinter window'''
-# set 'master' as a tkinter instance
-master = Tk()
+def init_window():
+    '''Initialising main tkinter window'''
+    # set 'master' as a tkinter instance
+    master = Tk()
 
-# Setting the title of master widget
-master.title('Quantos Dispensing')
+    # Setting the title of master widget
+    master.title('Quantos Dispensing')
 
-# changing theme of GUI
-style = ThemedStyle(master)
-style.set_theme('scidgrey')                     # use ttk.Button etc to access the themes
+    # changing theme of GUI
+    style = ThemedStyle(master)
+    style.set_theme('scidgrey')                     # use ttk.Button etc to access the themes
 
-# intro message
-intro_message = 'Please enter the mass (in mg) to be dispensed below.'
-Label(master, text=intro_message, font='helvetica 16 bold', pady=5).grid(row=0, column=0, columnspan=4)
+    # intro message
+    intro_message = 'Please enter the mass (in mg) to be dispensed below.'
+    Label(master, text=intro_message, font='helvetica 16 bold', pady=5).grid(row=0, column=0, columnspan=4)
 
-# create 'Send' button
-ttk.Button(master,
-       text='Send',
-       command=send_clear_popup).grid(row=22, column=2)
+    # create 'Send' button
+    ttk.Button(master,
+           text='Send',
+           command= lambda : show_amounts(e_list)).grid(row=22, column=2)
 
-# Creating a quit button instance
-quitButton = ttk.Button(master, text='Quit', command=client_exit)
+    # Creating a quit button instance
+    quitButton = ttk.Button(master, text='Quit', command=client_exit)
 
-# Placing quit button on window
-quitButton.grid(row=22,column=1)
+    # Placing quit button on window
+    quitButton.grid(row=22,column=1)
 
-# Creating vial labels and placing them in grid
-Label(master, text='Vial', font='helvetica 14 bold').grid(row=1, column=1)
-Label(master, text='Mass', font='helvetica 14 bold').grid(row=1,column=2)
+    # Creating vial labels and placing them in grid
+    Label(master, text='Vial', font='helvetica 14 bold').grid(row=1, column=1)
+    Label(master, text='Mass', font='helvetica 14 bold').grid(row=1,column=2)
 
-# creating labels for the different vials
-for i in range(20):
-    Label(master, text=str(i+1), font='helvetica 14').grid(row=i+2, column=1)
+    # creating labels for the different vials
+    for i in range(20):
+        Label(master, text=str(i+1), font='helvetica 14').grid(row=i+2, column=1)
 
-# Creating entries attached to variables, to use get() function on
-e1 = Entry(master)
-e2 = Entry(master)
-e3 = Entry(master)
-e4 = Entry(master)
-e5 = Entry(master)
-e6 = Entry(master)
-e7 = Entry(master)
-e8 = Entry(master)
-e9 = Entry(master)
-e10 = Entry(master)
-e11 = Entry(master)
-e12 = Entry(master)
-e13 = Entry(master)
-e14 = Entry(master)
-e15 = Entry(master)
-e16 = Entry(master)
-e17 = Entry(master)
-e18 = Entry(master)
-e19 = Entry(master)
-e20 = Entry(master)
+    return master
 
-# Generate list of entry values for easy access
-e_list = [e1,e2,e3,e4,e5,e6,e7,e8,e9,e10,e11,e12,e13,e14,e15,e16,e17,e18,e19,e20]
+def create_elist(master):
+    # Creating entries attached to variables, to use get() function on
+    e1 = Entry(master)
+    e2 = Entry(master)
+    e3 = Entry(master)
+    e4 = Entry(master)
+    e5 = Entry(master)
+    e6 = Entry(master)
+    e7 = Entry(master)
+    e8 = Entry(master)
+    e9 = Entry(master)
+    e10 = Entry(master)
+    e11 = Entry(master)
+    e12 = Entry(master)
+    e13 = Entry(master)
+    e14 = Entry(master)
+    e15 = Entry(master)
+    e16 = Entry(master)
+    e17 = Entry(master)
+    e18 = Entry(master)
+    e19 = Entry(master)
+    e20 = Entry(master)
 
-# Place each entry on the GUI
-e1.grid(row=2, column=2)
-e2.grid(row=3, column=2)
-e3.grid(row=4, column=2)
-e4.grid(row=5, column=2)
-e5.grid(row=6, column=2)
-e6.grid(row=7, column=2)
-e7.grid(row=8, column=2)
-e8.grid(row=9, column=2)
-e9.grid(row=10, column=2)
-e10.grid(row=11, column=2)
-e11.grid(row=12, column=2)
-e12.grid(row=13, column=2)
-e13.grid(row=14, column=2)
-e14.grid(row=15, column=2)
-e15.grid(row=16, column=2)
-e16.grid(row=17, column=2)
-e17.grid(row=18, column=2)
-e18.grid(row=19, column=2)
-e19.grid(row=20, column=2)
-e20.grid(row=21, column=2)
+    # Place each entry on the GUI
+    e1.grid(row=2, column=2)
+    e2.grid(row=3, column=2)
+    e3.grid(row=4, column=2)
+    e4.grid(row=5, column=2)
+    e5.grid(row=6, column=2)
+    e6.grid(row=7, column=2)
+    e7.grid(row=8, column=2)
+    e8.grid(row=9, column=2)
+    e9.grid(row=10, column=2)
+    e10.grid(row=11, column=2)
+    e11.grid(row=12, column=2)
+    e12.grid(row=13, column=2)
+    e13.grid(row=14, column=2)
+    e14.grid(row=15, column=2)
+    e15.grid(row=16, column=2)
+    e16.grid(row=17, column=2)
+    e17.grid(row=18, column=2)
+    e18.grid(row=19, column=2)
+    e19.grid(row=20, column=2)
+    e20.grid(row=21, column=2)
 
+    e_list = e1,e2,e3,e4,e5,e6,e7,e8,e9,e10,e11,e12,e13,e14,e15,e16,e17,e18,e19,e20
 
-'''Initialising menu bar'''
-# initialise menu
-menubar = Menu(master)
+    return e_list
 
-# file menu
-filemenu = Menu(menubar, tearoff=0)
-filemenu.add_command(label='Clear Values', command=clear_entry)
-filemenu.add_separator()
-filemenu.add_command(label='Quit', command=client_exit)
-menubar.add_cascade(label='File', menu=filemenu)
+def create_menu(master):
+    '''Initialising menu bar'''
+    # initialise menu
+    menubar = Menu(master)
 
-# help menu
-helpmenu = Menu(menubar, tearoff=0)
-helpmenu.add_command(label='About', command=about_msg)
-menubar.add_cascade(label='Help', menu=helpmenu)
+    # file menu
+    filemenu = Menu(menubar, tearoff=0)
+    filemenu.add_command(label='Clear Values', command=clear_entry)
+    filemenu.add_separator()
+    filemenu.add_command(label='Quit', command=client_exit)
+    menubar.add_cascade(label='File', menu=filemenu)
 
+    # help menu
+    helpmenu = Menu(menubar, tearoff=0)
+    helpmenu.add_command(label='About', command=about_msg)
+    menubar.add_cascade(label='Help', menu=helpmenu)
+
+    return menubar
 
 '''Finalise window'''
-master.config(menu=menubar)
-master.mainloop()
+def show_window(master, menubar):
+    master.config(menu=menubar)
+    master.mainloop()
 
 
 '''Next step is to create a __main__ and wrap the above into a main() function'''
+def main():
+    master = init_window()
+    menubar = create_menu(master)
+    e_list = create_elist(master)
+    print(e_list)
+    show_window(master, menubar)
+
+if __name__ == '__main__':
+    main()
