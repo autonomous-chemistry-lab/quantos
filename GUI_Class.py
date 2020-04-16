@@ -3,7 +3,7 @@
 # Mettler-Toledo Quantos to enable dispensing.
 #
 # University of Liverpool
-# Materials Innovation Factory
+# Materials InnovatFactory
 # Autonomous Chemistry Laboratory
 #
 # (C) 2020 Lewis Jones <Lewis.Jones@liverpool.ac.uk>
