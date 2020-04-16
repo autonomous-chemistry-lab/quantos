@@ -11,6 +11,6 @@ is to be dispensed into each sample vial.
 # Installation
 
 # Usage
-'''python
+```python
 print('hello world')
-'''
+```
