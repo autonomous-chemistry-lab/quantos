@@ -3,6 +3,7 @@
 # Script Test - Quantos
 # DMG UoL
 
+
 import time
 from mettler_toledo_quantos import MettlerToledoDevice
 
