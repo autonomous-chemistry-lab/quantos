@@ -36,10 +36,12 @@ This button closes the GUI and terminates the program.
 ## Menubar
 ### Clearing values
 File > Clear Values
+
 This removes any values in the entry boxes.
 
 ### Show 'About' information
 Help > About
+
 This tells the user what the GUI is used for and gives information
 about the developers.
 
