@@ -44,4 +44,4 @@ Help > About
 
 This tells the user what the GUI is used for and gives information
 about the developers.
-
+ 
