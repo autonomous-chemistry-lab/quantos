@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="77df6e7c-4dc0-4399-b663-a6c98661122a" name="Default Changelist" comment="Class is working">
+      <change afterPath="$PROJECT_DIR$/Quantos_GUI/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI_Class.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI_Class.py" beforeDir="false" afterPath="$PROJECT_DIR$/Quantos_GUI/GUI_Class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Values.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/XML_Parcer.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,6 +28,11 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Quantos_GUI" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -51,7 +59,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GUI_Class.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Quantos_GUI/GUI_Class.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
