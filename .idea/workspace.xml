@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="77df6e7c-4dc0-4399-b663-a6c98661122a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Quantos_GUI/GUI_Class.py" beforeDir="false" afterPath="$PROJECT_DIR$/Quantos_GUI/GUI_Class.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -295,7 +295,21 @@
       <option name="project" value="LOCAL" />
       <updated>1587029936523</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="GUI functions - no class">
+      <created>1591260390651</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1591260390652</updated>
+    </task>
+    <task id="LOCAL-00020" summary="GUI functions - no class">
+      <created>1591260510824</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1591260510824</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -354,6 +368,7 @@
     <MESSAGE value="Class is working" />
     <MESSAGE value="Working on readme" />
     <MESSAGE value="Create GUI package" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create GUI package" />
+    <MESSAGE value="GUI functions - no class" />
+    <option name="LAST_COMMIT_MESSAGE" value="GUI functions - no class" />
   </component>
 </project>
