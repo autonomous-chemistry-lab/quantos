@@ -13,7 +13,7 @@ from tkinter import *
 from dicttoxml import dicttoxml
 from xml.dom.minidom import parseString
 import time
-
+'''Does not contain class'''
 
 class QuantosGUI:
     def __init__(self, master):
